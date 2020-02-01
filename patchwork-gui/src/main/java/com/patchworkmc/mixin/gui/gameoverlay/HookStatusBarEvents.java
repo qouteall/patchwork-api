@@ -21,18 +21,8 @@ package com.patchworkmc.mixin.gui.gameoverlay;
 
 import static com.patchworkmc.impl.gui.PatchworkGui.post;
 import static com.patchworkmc.impl.gui.PatchworkGui.pre;
-import static net.minecraftforge.client.ForgeIngameGui.left_height;
-import static net.minecraftforge.client.ForgeIngameGui.renderAir;
-import static net.minecraftforge.client.ForgeIngameGui.renderArmor;
-import static net.minecraftforge.client.ForgeIngameGui.renderFood;
-import static net.minecraftforge.client.ForgeIngameGui.renderHealth;
-import static net.minecraftforge.client.ForgeIngameGui.renderHealthMount;
-import static net.minecraftforge.client.ForgeIngameGui.right_height;
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.AIR;
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.ARMOR;
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.FOOD;
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.HEALTH;
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.HEALTHMOUNT;
+import static net.minecraftforge.client.ForgeIngameGui.*;
+import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.*;
 
 import java.util.Random;
 
@@ -102,7 +92,6 @@ public abstract class HookStatusBarEvents extends DrawableHelper {
 
 	/**
 	 * Forge changes the order of rendering armor and health, so an overwrite is needed.
-	 * This
 	 * @author TheGlitch76
 	 */
 	@Overwrite
@@ -128,6 +117,8 @@ public abstract class HookStatusBarEvents extends DrawableHelper {
 		}
 	}
 
+	// NOTE: These are internal methods of ForgeInGameGui. They'll need to be redirected in Patcher if someone wants to use them for some reason.
+	// (they shouldn't!)
 	public void renderHealth(int width, int height) {
 		bind(GUI_ICONS_LOCATION);
 
