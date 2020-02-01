@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package cpw.mods.modlauncher.api;
+package net.minecraftforge.fml.client.registry;
 
-/**
- * Only serves to expose the Domain enum.
- */
-public interface INameMappingService {
-	enum Domain { CLASS, METHOD, FIELD }
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.entity.Entity;
+
+public interface IRenderFactory<T extends Entity> {
+	EntityRenderer<? super T> createRenderFor(EntityRenderDispatcher manager);
 }

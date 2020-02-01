@@ -17,11 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package cpw.mods.modlauncher.api;
+package net.minecraftforge.fml.client.registry;
 
-/**
- * Only serves to expose the Domain enum.
- */
-public interface INameMappingService {
-	enum Domain { CLASS, METHOD, FIELD }
+import net.minecraft.entity.Entity;
+
+import net.fabricmc.fabric.api.client.render.EntityRendererRegistry;
+
+public class RenderingRegistry {
+	/**
+	 * Register an entity rendering handler. This will, after mod initialization, be inserted into the main
+	 * render map for entities.
+	 * Call this during {@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}.
+	 * This method is safe to call during parallel mod loading.
+	 */
+	public static <T extends Entity> void registerEntityRenderingHandler(Class<T> entityClass, IRenderFactory<? super T> renderFactory) {
+		EntityRendererRegistry.INSTANCE.register(entityClass, (dispatcher, context) -> renderFactory.createRenderFor(dispatcher));
+	}
 }

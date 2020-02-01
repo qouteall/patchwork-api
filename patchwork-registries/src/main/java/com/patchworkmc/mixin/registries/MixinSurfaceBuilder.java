@@ -28,6 +28,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 import com.patchworkmc.impl.registries.ExtendedForgeRegistryEntry;
+import com.patchworkmc.impl.registries.Identifiers;
 
 @Mixin(SurfaceBuilder.class)
 public class MixinSurfaceBuilder implements ExtendedForgeRegistryEntry<SurfaceBuilder> {
@@ -35,17 +36,16 @@ public class MixinSurfaceBuilder implements ExtendedForgeRegistryEntry<SurfaceBu
 	private Identifier registryName;
 
 	@Override
-	public IForgeRegistryEntry setRegistryName(Identifier name) {
+	public IForgeRegistryEntry<SurfaceBuilder> setRegistryName(Identifier name) {
 		this.registryName = name;
 
 		return this;
 	}
 
 	public Identifier getRegistryName() {
-		Identifier current = Registry.SURFACE_BUILDER.getId((SurfaceBuilder) (Object) this);
-		Identifier set = registryName;
+		SurfaceBuilder<?> surfaceBuilder = (SurfaceBuilder<?>) (Object) this;
 
-		return current != null ? current : set;
+		return Identifiers.getOrFallback(Registry.SURFACE_BUILDER, surfaceBuilder, registryName);
 	}
 
 	public Class<SurfaceBuilder> getRegistryType() {

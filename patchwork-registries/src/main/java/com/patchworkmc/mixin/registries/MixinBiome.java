@@ -28,6 +28,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
 import com.patchworkmc.impl.registries.ExtendedForgeRegistryEntry;
+import com.patchworkmc.impl.registries.Identifiers;
 
 @Mixin(Biome.class)
 public class MixinBiome implements ExtendedForgeRegistryEntry<Biome> {
@@ -35,17 +36,16 @@ public class MixinBiome implements ExtendedForgeRegistryEntry<Biome> {
 	private Identifier registryName;
 
 	@Override
-	public IForgeRegistryEntry setRegistryName(Identifier name) {
+	public IForgeRegistryEntry<Biome> setRegistryName(Identifier name) {
 		this.registryName = name;
 
 		return this;
 	}
 
 	public Identifier getRegistryName() {
-		Identifier current = Registry.BIOME.getId((Biome) (Object) this);
-		Identifier set = registryName;
+		Biome biome = (Biome) (Object) this;
 
-		return current != null ? current : set;
+		return Identifiers.getOrFallback(Registry.BIOME, biome, registryName);
 	}
 
 	public Class<Biome> getRegistryType() {

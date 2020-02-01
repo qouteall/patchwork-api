@@ -17,38 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package com.patchworkmc.mixin.registries;
+package com.patchworkmc.mixin.biomes;
 
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
 
-import com.patchworkmc.impl.registries.ExtendedForgeRegistryEntry;
-import com.patchworkmc.impl.registries.Identifiers;
+import com.patchworkmc.impl.biomes.RiverSupplier;
+import com.patchworkmc.impl.biomes.PatchworkBiomes;
 
-@Mixin(Item.class)
-public class MixinItem implements ExtendedForgeRegistryEntry<Item> {
-	@Unique
-	private Identifier registryName;
-
+@Mixin(Biome.class)
+public class MixinBiome implements RiverSupplier {
 	@Override
-	public IForgeRegistryEntry<Item> setRegistryName(Identifier name) {
-		this.registryName = name;
-
-		return this;
-	}
-
-	public Identifier getRegistryName() {
-		Item item = (Item) (Object) this;
-
-		return Identifiers.getOrFallback(Registry.ITEM, item, registryName);
-	}
-
-	public Class<Item> getRegistryType() {
-		return Item.class;
+	public Biome getRiver() {
+		Biome self = (Biome) (Object) this;
+		return PatchworkBiomes.getDefaultRiver(self);
 	}
 }

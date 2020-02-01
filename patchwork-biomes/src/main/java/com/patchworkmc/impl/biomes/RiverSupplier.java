@@ -17,11 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package cpw.mods.modlauncher.api;
+package com.patchworkmc.impl.biomes;
 
-/**
- * Only serves to expose the Domain enum.
- */
-public interface INameMappingService {
-	enum Domain { CLASS, METHOD, FIELD }
+import net.minecraft.world.biome.Biome;
+
+public interface RiverSupplier {
+	Biome getRiver();
 }
