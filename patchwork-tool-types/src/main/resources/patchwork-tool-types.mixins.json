@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.patchworkmc.mixin.tooltypes",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinItem",
+    "MixinItem$MixinItemSettings"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

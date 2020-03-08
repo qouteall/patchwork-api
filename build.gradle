@@ -267,7 +267,7 @@ dependencies {
 
 		System.out.println("Found test mod: " + it.name.replace(".jar", "") + " -> " + name)
 
-		modCompileOnly name
+		modCompile name
 		modRuntime name
 	}
 }

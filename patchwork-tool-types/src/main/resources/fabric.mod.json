@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "patchwork-tool-types",
+  "name": "Patchwork Tool Types",
+  "version": "${version}",
+  "license": "LGPL-2.1-only",
+  "icon": "assets/patchwork-tool-types/icon.png",
+  "contact": {
+    "issues": "https://github.com/PatchworkMC/patchwork/issues",
+    "sources": "https://github.com/PatchworkMC/patchwork"
+  },
+  "authors": [
+    "PatchworkMC"
+  ],
+  "depends": {
+    "fabricloader": ">=0.6.2",
+    "patchwork-fml": "*"
+  },
+  "mixins": [
+    "patchwork-tool-types.mixins.json"
+  ],
+  "description": "Implementation of Forge's ToolType.",
+  "custom": {
+    "modmenu:api": true,
+    "modmenu:parent": "patchwork"
+  }
+}
