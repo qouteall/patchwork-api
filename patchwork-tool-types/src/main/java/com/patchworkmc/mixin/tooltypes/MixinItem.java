@@ -27,14 +27,13 @@ import net.minecraft.item.Item;
 
 @Mixin(Item.class)
 public class MixinItem {
-
 	@Mixin(Item.Settings.class)
 	static class MixinItemSettings {
 		private java.util.Map<ToolType, Integer> toolClasses = Maps.newHashMap();
 
 		public Item.Settings addToolType(ToolType type, int level) {
-		   toolClasses.put(type, level);
-		   return (Item.Settings) (Object)this;
+			toolClasses.put(type, level);
+			return (Item.Settings) (Object) this;
 		}
 	}
 }
