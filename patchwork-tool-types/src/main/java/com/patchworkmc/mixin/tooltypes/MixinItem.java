@@ -19,21 +19,52 @@
 
 package com.patchworkmc.mixin.tooltypes;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.google.common.collect.Maps;
 import net.minecraftforge.common.ToolType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import com.patchworkmc.impl.tooltypes.ToolTypeRetriver;
 
 @Mixin(Item.class)
 public class MixinItem {
+	private Map<ToolType, Integer> toolClasses = Maps.newHashMap();
+
+	@Inject(method = "<init>", at = @At("RETURN"))
+	public void hookConstructor(Item.Settings settings, CallbackInfo ci) {
+		toolClasses = ((ToolTypeRetriver) settings).getToolTypeMap();
+	}
+
+	public Set<ToolType> getToolTypes(ItemStack stack) {
+		return toolClasses.keySet();
+	}
+
+	public int getHarvestLevel(ItemStack stack, ToolType tool, PlayerEntity player, BlockState blockState) {
+		return toolClasses.getOrDefault(tool, -1);
+	}
+
 	@Mixin(Item.Settings.class)
-	static class MixinItemSettings {
-		private java.util.Map<ToolType, Integer> toolClasses = Maps.newHashMap();
+	static class MixinItemSettings implements ToolTypeRetriver {
+		private Map<ToolType, Integer> toolClasses = Maps.newHashMap();
 
 		public Item.Settings addToolType(ToolType type, int level) {
 			toolClasses.put(type, level);
 			return (Item.Settings) (Object) this;
+		}
+
+		@Override
+		public Map<ToolType, Integer> getToolTypeMap() {
+			return toolClasses;
 		}
 	}
 }
