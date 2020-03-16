@@ -60,7 +60,7 @@ import org.apache.logging.log4j.MarkerManager;
  * Like {@link com.electronwill.nightconfig.core.ConfigSpec} except in builder format, and extended to accept comments, language keys,
  * and other things Forge configs would find useful.
  */
-//TODO: Remove extends and pipe everything through getSpec/getValues?
+//oTODO: Remove extends and pipe everything through getSpec/getValues?
 public class ForgeConfigSpec extends UnmodifiableConfigWrapper<UnmodifiableConfig> {
 	private static final Marker CORE = MarkerManager.getMarker("CORE");
 
